@@ -22,46 +22,26 @@ class _State extends State<Read> {
   List<String> title = List();
   List<String> link = List();
   List<String> post = List();
+  String BibleLines;
 
   void _getDataFromWeb() async {
     final response =
         await http.get('https://www.bible.com/bible/184/GEN.1.TSO89');
     dom.Document document = parser.parse(response.body);
-    final elements = document.getElementsByClassName('reader');
-
-    final elements2 = document.querySelectorAll(".heading,.label, .content");
+    final elements = document.getElementsByClassName('yv-bible-text ');
+    final elements2 = document.querySelector(".content , .label , .heading");
+    //final elements2 = document.querySelector(".content , .label , .heading");
 
     //final content = document.getElementsByTagName('reader');
     setState(() {
       title = elements
           .map((element) => element.getElementsByTagName("h1")[0].innerHtml)
           .toList();
-
-      //for (int i = 0; i < elements2.length; i++) {
-      // post.add(elements2[i].innerHtml.toString());
-      // }
-
-      link.add(elements2.length.toString());
-      /*
-      post.add(elements
-            .map((element) => element
-                .querySelectorAll(".heading,.label, .content")[i]
-                .innerHtml)
-            .toString());
-      
-      
-      
       post = elements
           .map((element) => element
-              .querySelectorAll(".heading,.label, .content")[4]
-              .innerHtml)
-          .toList();*/
-
-      //.heading, .label,
-      /*link = content
-          .map((element) =>
-              element.getElementsByTagName("span")[0].innerHtml.toString())
-          .toList();*/
+              .querySelectorAll(".content , .label , .heading")
+              .toString())
+          .toList();
     });
   }
 
@@ -78,7 +58,7 @@ class _State extends State<Read> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.brown[200],
       ),
-      body: post.length == 0 || title.length == 0
+      body: title.length == 0 || post.length == 0
           ? Text('No data')
           : ListView.builder(
               itemCount: post.length,
@@ -114,13 +94,13 @@ class _State extends State<Read> {
                                   ),
                                 ),
                                 SizedBox(height: 15),
-                                Text(
+                                /* Text(
                                   link[0],
                                   style: TextStyle(
                                     fontSize: 19,
                                     color: Colors.black,
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ),

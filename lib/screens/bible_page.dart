@@ -34,7 +34,7 @@ class BiblePage extends StatelessWidget {
                           Center(
                               child: Text(
                             'Select a verse to read',
-                            style: Theme.of(context).textTheme.display1,
+                            style: Theme.of(context).textTheme.headline4,
                             textScaleFactor: 0.9,
                           )),
                         ],
@@ -76,16 +76,16 @@ class BiblePage extends StatelessWidget {
                           ),
                           onTap: () {
                             showDialog(
+                                builder: (context) => CupertinoAlertDialog(
+                                      title: Column(
+                                        children: <Widget>[
+                                          Text('test'),
+                                          Icon(Icons.favorite)
+                                        ],
+                                      ),
+                                    ),
                                 barrierDismissible: false,
-                                context: context,
-                                child: CupertinoAlertDialog(
-                                  title: Column(
-                                    children: <Widget>[
-                                      Text('test'),
-                                      Icon(Icons.favorite)
-                                    ],
-                                  ),
-                                ));
+                                context: context);
                           },
                         ),
                       );
